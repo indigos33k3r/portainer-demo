@@ -3,6 +3,7 @@ from fabric.api import task, local
 @task
 def down():
     local('docker-compose down')
+    local('rm -rf /tmp/manager_run')
 
 @task
 def up():
