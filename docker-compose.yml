@@ -1,0 +1,57 @@
+version: "2"
+services:
+  proxy:
+    build: nginx/
+    container_name: "portainer-proxy"
+    ports:
+      - "80:80"
+    networks:
+      - local
+
+  templates:
+    image: portainer/templates
+    container_name: "portainer-templates"
+    networks:
+      - local
+
+  portainer:
+    image: portainer/portainer:demo
+    container_name: "portainer-app"
+    command: --templates http://templates/templates.json --no-analytics
+    networks:
+      - local
+    volumes:
+      - /tmp/manager_run/docker.sock:/var/run/docker.sock
+
+  manager1:
+    image: docker:dind
+    privileged: true
+    hostname: manager1
+    volumes:
+      - /tmp/manager_run:/var/run
+    networks:
+      - swarm
+  manager2:
+    image: docker:dind
+    privileged: true
+    hostname: manager2
+    networks:
+      - swarm
+  worker1:
+    image: docker:dind
+    privileged: true
+    hostname: worker1
+    networks:
+      - swarm
+  worker2:
+    image: docker:dind
+    privileged: true
+    hostname: worker2
+    networks:
+      - swarm
+
+networks:
+  local:
+    driver: bridge
+  swarm:
+    driver: bridge
