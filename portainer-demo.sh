@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd $(dirname $0)
+
 exec_in() { docker-compose exec -T $@; }
 
 # Fresh start
