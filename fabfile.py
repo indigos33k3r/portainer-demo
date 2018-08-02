@@ -14,7 +14,7 @@ def up():
     local('docker-compose exec -T manager2 docker swarm join --token {} manager1:2377'.format(token_manager))
     local('docker-compose exec -T worker1 docker swarm join --token {} manager1:2377'.format(token_worker))
     local('docker-compose exec -T worker2 docker swarm join --token {} manager1:2377'.format(token_worker))
-    local('docker-compose up -d proxy templates portainer')
+    local('docker-compose up -d proxy portainer')
 
 @task
 def demo():

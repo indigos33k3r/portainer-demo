@@ -8,16 +8,10 @@ services:
     networks:
       - local
 
-  templates:
-    image: portainer/templates
-    container_name: "portainer-templates"
-    networks:
-      - local
-
   portainer:
     image: portainer/portainer:demo
     container_name: "portainer-app"
-    command: --templates http://templates/templates.json --no-analytics
+    command: --no-analytics
     networks:
       - local
     volumes:
