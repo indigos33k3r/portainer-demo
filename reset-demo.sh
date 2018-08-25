@@ -6,6 +6,8 @@ cd $(dirname $0)
 
 sleep 5
 
+/usr/bin/docker system prune --volumes -f
+
 /usr/bin/fab up
 
 exit 0
